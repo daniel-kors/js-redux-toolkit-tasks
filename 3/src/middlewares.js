@@ -9,6 +9,26 @@ const logger = (store) => (next) => (action) => {
 
 const addDate = (store) => (next) => (action) => {
   // BEGIN (write your solution here)
+  if (action.type === 'TASK_ADD' && action.payload && action.payload.task) {
+    const currentDate = new Date().toLocaleDateString('ru-RU');
+    const originalText = action.payload.task.text;
+    const newText = `Задача на ${currentDate}: ${originalText}`;
+
+    const modifiedAction = {
+      ...action,
+      payload: {
+        ...action.payload,
+        task: {
+          ...action.payload.task,
+          text: newText
+        }
+      }
+    };
+
+    return next(modifiedAction);
+  }
+
+  return next(action);
 
   // END
 };

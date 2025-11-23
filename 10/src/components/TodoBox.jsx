@@ -2,25 +2,31 @@ import React from 'react';
 import Spinner from './Spinner.jsx';
 import TodoForm from './TodoForm.jsx';
 // BEGIN (write your solution here)
-
+import {
+    useGetTasksQuery,
+    useAddTaskMutation,
+    useRemoveTaskMutation,
+} from '../services/tasksApi.js';
 // END
 
 const TodoBox = () => {
   // BEGIN (write your solution here)
-
+    const { data: tasks = [], isLoading, error } = useGetTasksQuery();
+    const [addTask] = useAddTaskMutation();
+    const [removeTask] = useRemoveTaskMutation();
   // END
 
   const handleDeleteTask = (event, id) => {
     event.preventDefault();
     // BEGIN (write your solution here)
-
+      removeTask(id);
     // END
   };
 
   const handleSubmitForm = (event, newTaskText) => {
     event.preventDefault();
     // BEGIN (write your solution here)
-
+      addTask(newTaskText);
     // END
   };
 
@@ -31,7 +37,13 @@ const TodoBox = () => {
   );
 
   // BEGIN (write your solution here)
+    if (isLoading) {
+        return <Spinner />;
+    }
 
+    if (error) {
+        return <div>Error loading tasks</div>;
+    }
   // END
 
   return (

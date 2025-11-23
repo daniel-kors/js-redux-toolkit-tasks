@@ -17,7 +17,6 @@ const postsSlice = createSlice({
       postsAdapter.removeOne(state, payload.id),
   },
   // BEGIN (write your solution here)
-
   // END
 });
 
